@@ -1,29 +1,17 @@
 import java.util.List;
 
-import org.javatuples.Pair;
-import FileReader.readHeap;
+import org.javatuples.*;
+import FileHandler.*;
 
 public class Main {
-//    public static void main(String[] args)
-//    {
-//        Unit<String> unit = new Unit<String>("GeeksforGeeks");
-//
-//        System.out.println(unit);
-//    }
-//    public static void main(String[] args) throws Exception {
-//
-//        Scanner sc = new Scanner(new File(fileName));
-//        sc.useDelimiter(",");
-//        while (sc.hasNext())  //returns a boolean value
-//        {
-//            System.out.print(sc.next());  //find and returns the next complete token from this scanner
-//        }
-//        sc.close();  //closes the scanner
-//    }
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         String fileName = "F:\\heap.csv";
-        List<Pair<Integer, Integer>> ans = readHeap.read(fileName);
-        System.out.println(ans);
+        List<Unit<Integer>> rootsList = readRoots.read(fileName); // null if there is an Error
+        List<Pair<Integer, Integer>> pointersList = readPointers.read(fileName); // null if there is an Error        
+        List<Triplet<Integer, Integer, Integer>> heapList = readHeap.read(fileName); // null if there is an Error
+        System.out.println(rootsList);
+        String outputFileName = "F:\\new-heap";
+        boolean writeDone = fileWriter.write(outputFileName, heapList);
+        if(!writeDone) System.out.println("Error! can't Writte File !\n");
     }
 }
