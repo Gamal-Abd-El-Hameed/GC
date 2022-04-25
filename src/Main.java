@@ -13,17 +13,17 @@ public class Main {
         List<Pair<Integer, Integer>> pointersList = readPointers.read(pointersFileName); // null if there is an Error        
         List<Triplet<Integer, Integer, Integer>> heapList = readHeap.read(heapFileName); // null if there is an Error
 
-        System.out.println(pointersList);
+        System.out.println(heapList);
 
         String outputFileName = "F:\\new-heap";
 
         // boolean writeDone = fileWriter.write(outputFileName, heapList);
         // if(!writeDone) System.out.println("Error! can't Writte File !\n");
-        
-        List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = 
-                            new MarkCompact().getNewHeapList(heapList, rootsList, pointersList);
-        boolean markCompactFinished = fileWriter.write(outputFileName + "-MarkCompact", heapListOfMarkCompact);
-        if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
-        else System.out.println("Done\n");
+
+        // List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = 
+        //                     new MarkCompact().getNewHeapList(heapList, rootsList, pointersList);
+        // boolean markCompactFinished = fileWriter.write(outputFileName + "-MarkCompact", heapListOfMarkCompact);
+        // if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
+        // else System.out.println("Done\n");
     }
 }
