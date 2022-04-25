@@ -8,4 +8,8 @@ public interface GC {
                 (List<Triplet<Integer, Integer, Integer>> heapList,
                 List<Unit<Integer>> rootsList,
                 List<Pair<Integer, Integer>> pointersList);
+
+    // boolean writeResultsToFile(List<Triplet<Integer, Integer, Integer>> heapList,
+    //                             List<Unit<Integer>> rootsList,
+    //                             List<Pair<Integer, Integer>> pointersList);
 }

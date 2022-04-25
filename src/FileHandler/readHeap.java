@@ -15,7 +15,7 @@ public class readHeap {
         try
         {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
-            while ((line = br.readLine()) != null)   //returns a Boolean value
+            while ((line = br.readLine()) != null)
             {
                 String[] values = line.split(",");
                 List<Integer> intValues = Arrays.asList(values).stream()

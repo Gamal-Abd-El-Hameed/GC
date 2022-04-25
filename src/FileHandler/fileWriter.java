@@ -4,7 +4,6 @@ import org.javatuples.Triplet;
 import java.io.*;
 import java.util.List;
 
-
 public class fileWriter {
     public static boolean write(String fileName, List<Triplet<Integer, Integer, Integer>> newHeapList) {
         try (PrintWriter writer = new PrintWriter(fileName)) {

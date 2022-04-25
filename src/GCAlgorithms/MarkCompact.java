@@ -9,6 +9,6 @@ public class MarkCompact implements GC {
     public List<Triplet<Integer, Integer, Integer>> getNewHeapList(List<Triplet<Integer, Integer, Integer>> heapList,
             List<Unit<Integer>> rootsList, List<Pair<Integer, Integer>> pointersList) {
         return null; // will Complete ISA
-    }
+    }    
     
 }
