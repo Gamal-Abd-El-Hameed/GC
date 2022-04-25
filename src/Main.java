@@ -2,7 +2,6 @@
 // Below is a Java program to create
 // a Unit tuple from Constructor
 
-import java.util.*;
 import org.javatuples.Unit;
 
 public class Main {
