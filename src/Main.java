@@ -1,6 +1,7 @@
 import java.util.List;
 
 import GCAlgorithms.MarkCompact.MarkCompactGC;
+import GCAlgorithms.MarkSweep.MarkSweep;
 import org.javatuples.*;
 import FileHandler.*;
 
@@ -29,9 +30,15 @@ public class Main {
 //        boolean writeDone = fileWriter.write(outputFileName, heapList);
 //        if(!writeDone) System.out.println("Error! can't Write File !\n");
 
-        MarkCompactGC MarkCompactGC = new MarkCompactGC(heapList, rootsList, pointersList);
-        List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = MarkCompactGC.execute();
-        boolean markCompactFinished = fileWriter.write(outputFileName, heapListOfMarkCompact);
+//        MarkCompactGC MarkCompactGC = new MarkCompactGC(heapList, rootsList, pointersList);
+//        List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = MarkCompactGC.execute();
+//        boolean markCompactFinished = fileWriter.write(outputFileName, heapListOfMarkCompact);
+//        if(!markCompactFinished) System.out.println("Error! Mark Compact can't Write File!\n");
+//        else System.out.println("Done\n");
+
+        MarkSweep MarkSweepGC = new MarkSweep(heapList, rootsList, pointersList);
+        List<Triplet<Integer, Integer, Integer>> heapListOfMarkSweep = MarkSweepGC.execute();
+        boolean markCompactFinished = fileWriter.write(outputFileName, heapListOfMarkSweep);
         if(!markCompactFinished) System.out.println("Error! Mark Compact can't Write File!\n");
         else System.out.println("Done\n");
     }
