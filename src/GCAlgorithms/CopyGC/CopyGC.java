@@ -3,6 +3,7 @@ package CopyGC;
 import CollectedObject.CollectedObject;
 import DataLoader.IDataLoader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class CopyGC implements ICopyGC{
     }
 
     @Override
-    public void initializeGarbageCollector() {
+    public void initializeGarbageCollector()  {
 
         initializeObjectsList();
 
@@ -34,11 +35,11 @@ public class CopyGC implements ICopyGC{
     }
 
     @Override
-    public List<CollectedObject> execute() {
+    public void execute()  {
 
         this.initializeGarbageCollector();
 
-        List<Integer> roots = this.dataLoader.extractRoots("roots.txt");
+        List<Integer> roots = this.dataLoader.extractRoots();
 
         for (int i = 0; i < roots.size(); i++)
                 moveToNewHeap(roots.get(i));
@@ -54,7 +55,7 @@ public class CopyGC implements ICopyGC{
 
         }
 
-        return this.newHeap;
+        this.dataLoader.storeData(this.newHeap);
 
     }
 
@@ -80,9 +81,9 @@ public class CopyGC implements ICopyGC{
         return 0;
     }
 
-    public void initializeObjectsList(){
+    public void initializeObjectsList() {
 
-        List<CollectedObject> objectData = this.dataLoader.extractObjectsData("heap.csv");
+        List<CollectedObject> objectData = this.dataLoader.extractObjectsData();
 
         for (int i = 0; i < objectData.size(); i++){
 
@@ -92,9 +93,9 @@ public class CopyGC implements ICopyGC{
         }
     }
 
-    public void initializeObjectsPointers(){
+    public void initializeObjectsPointers()  {
 
-        List<List<Integer>> pointersList = this.dataLoader.extractPointers("pointers.txt");
+        List<List<Integer>> pointersList = this.dataLoader.extractPointers();
 
         for (int i = 0; i < pointersList.size(); i++)
 
