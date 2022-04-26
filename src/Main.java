@@ -27,5 +27,8 @@ public class Main {
         if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
         else System.out.println("Done\n");
 
+
+
+
     }
 }
