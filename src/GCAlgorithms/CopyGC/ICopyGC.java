@@ -2,14 +2,15 @@ package CopyGC;
 
 import CollectedObject.CollectedObject;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ICopyGC {
 
 
-    void initializeGarbageCollector();
+    void initializeGarbageCollector() throws IOException;
 
-    List<CollectedObject> execute();
+    void execute() throws IOException;
 
     int moveToNewHeap( int collectedObjectIdentifier );
 
