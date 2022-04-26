@@ -1,4 +1,4 @@
-package GCAlgorithms;
+﻿package GCAlgorithms;
 
 import java.util.List;
 import org.javatuples.*;

@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.List;
 
 import org.javatuples.*;
@@ -17,13 +18,21 @@ public class Main {
 
         String outputFileName = "F:\\new-heap";
 
-        // boolean writeDone = fileWriter.write(outputFileName, heapList);
-        // if(!writeDone) System.out.println("Error! can't Writte File !\n");
+        boolean writeDone = fileWriter.write(outputFileName, heapList);
+        if(!writeDone) System.out.println("Error! can't Writte File !\n");
 
-        // List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = 
-        //                     new MarkCompact().getNewHeapList(heapList, rootsList, pointersList);
-        // boolean markCompactFinished = fileWriter.write(outputFileName + "-MarkCompact", heapListOfMarkCompact);
-        // if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
-        // else System.out.println("Done\n");
+        List<Triplet<Integer, Integer, Integer>> heapListOfMarkCompact = 
+                            new MarkCompact().getNewHeapList(heapList, rootsList, pointersList);
+        boolean markCompactFinished = fileWriter.write(outputFileName + "-MarkCompact", heapListOfMarkCompact);
+        if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
+        else System.out.println("Done\n");
+
+        // CSVWriter csvWriter = new CSVWriter(new FileWriter("F:\\example.csv"));
+        // csvWriter.writeNext(new String[]{"1", "jan", "Male", "20"});
+        // csvWriter.writeNext(new String[]{"2", "con", "Male", "24"});
+        // csvWriter.writeNext(new String[]{"3", "jane", "Female", "18"});
+        // csvWriter.writeNext(new String[]{"4", "ryo", "Male", "28"});
+ 
+        // csvWriter.close();
     }
 }

@@ -52,6 +52,7 @@ public class MarkCompact implements GC {
 
     private void compactPhase() {
         int offset = 0;
+        // sort
         for(int i = 0; i < size; i++) {     
             Triplet<Integer, Integer, Integer> heapElement = heapList.get(i);    
             int identifier = heapElement.getValue0();
