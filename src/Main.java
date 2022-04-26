@@ -7,6 +7,7 @@ import GCAlgorithms.MarkCompact;
 
 public class Main {
     public static void main(String[] args) {
+        readHeap readHeap = new readHeap();
         String rootsFileName = "D:\\roots.txt";
         String heapFileName = "D:\\heap.csv";
         String pointersFileName = "D:\\pointers.csv";
