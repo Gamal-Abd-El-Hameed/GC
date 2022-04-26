@@ -15,6 +15,7 @@ public class readPointers {
         try
         {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
+            System.out.println(fileName);
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
                 String[] values = line.split(",");

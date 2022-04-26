@@ -1,77 +1,84 @@
-package CopyGC;
+package GCAlgorithms.CopyGC;
 
-import CollectedObject.CollectedObject;
-import DataLoader.IDataLoader;
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+import org.javatuples.Unit;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class CopyGC implements ICopyGC{
+public class CopyGC implements ICopyGC {
 
-    private final IDataLoader dataLoader;
-    private final HashMap<Integer, CollectedObject> collectedObjectList;
+
+    private final HashMap<Integer, Triplet<Integer, Integer, Integer>> collectedObjectList;
     private final HashMap<Integer, Boolean> allocated;
-    private final List<CollectedObject> newHeap;
+    private final HashMap<Integer, List<Integer>> pointersList;
+    private final List<Unit<Integer>> roots;
+    private final List<Triplet<Integer, Integer, Integer>> newHeap;
     private int newHeapStartIndex;
 
-    public CopyGC(IDataLoader dataLoader) {
+    public CopyGC(List<Triplet<Integer, Integer, Integer>> collectedObjects,List<Unit<Integer>> roots, List<Pair<Integer, Integer>> pointers) {
 
-        this.dataLoader = dataLoader;
         collectedObjectList = new HashMap<>();
         allocated = new HashMap<>();
+        this.roots = roots;
+        pointersList = new HashMap<>();
         this.newHeapStartIndex = 0;
-        this.newHeap = new ArrayList<CollectedObject>();
-    }
+        this.newHeap = new ArrayList<>();
 
-    @Override
-    public void initializeGarbageCollector()  {
-
-        initializeObjectsList();
-
-        initializeObjectsPointers();
+        this.initializeGarbageCollector(collectedObjects, pointers);
 
     }
 
     @Override
-    public void execute()  {
+    public void initializeGarbageCollector (List<Triplet<Integer, Integer, Integer>> collectedObjects, List<Pair<Integer, Integer>> pointers)  {
 
-        this.initializeGarbageCollector();
+        initializeObjectsList(collectedObjects);
 
-        List<Integer> roots = this.dataLoader.extractRoots();
+        initializeObjectsPointers(pointers);
+
+    }
+
+    @Override
+    public List<Triplet<Integer, Integer, Integer>> execute()  {
 
         for (int i = 0; i < roots.size(); i++)
-                moveToNewHeap(roots.get(i));
+                moveToNewHeap(roots.get(i).getValue0());
 
         int served = 0, allocated = this.newHeap.size();
 
         while (served < allocated){
 
-            for (int i = 0; i < this.newHeap.get(served).pointers.size(); i++)
-                allocated += moveToNewHeap(this.newHeap.get(served).pointers.get(i));
+            if (this.pointersList.get(this.newHeap.get(served).getValue0()) != null) {
+
+                for (int i = 0; i < this.pointersList.get(this.newHeap.get(served).getValue0()).size(); i++)
+                    allocated += moveToNewHeap(this.pointersList.get(this.newHeap.get(served).getValue0()).get(i));
+
+            }
 
             served++;
 
         }
 
-        this.dataLoader.storeData(this.newHeap);
+        return this.newHeap;
 
     }
 
     @Override
     public int moveToNewHeap(int collectedObjectIdentifier) {
 
-        CollectedObject oldObject = collectedObjectList.get(collectedObjectIdentifier);
+        Triplet<Integer, Integer, Integer> oldObject = collectedObjectList.get(collectedObjectIdentifier);
 
         if (!allocated.get(collectedObjectIdentifier)){
 
-            CollectedObject newAllocatedObject = new CollectedObject( oldObject.identifier,
-                                                                          newHeapStartIndex,
-                                                                  newHeapStartIndex + (oldObject.endIndex - oldObject.startIndex));
-            newAllocatedObject.pointers = oldObject.pointers;
+            Triplet<Integer, Integer, Integer> newAllocatedObject = new Triplet<>(oldObject.getValue0(),
+                    newHeapStartIndex,
+                    newHeapStartIndex + (oldObject.getValue2() - oldObject.getValue1()));
+
             this.newHeap.add(newAllocatedObject);
-            this.newHeapStartIndex = newAllocatedObject.endIndex + 1;
+            this.newHeapStartIndex = newAllocatedObject.getValue2() + 1;
             allocated.put(collectedObjectIdentifier, true);
 
             return 1;
@@ -81,29 +88,30 @@ public class CopyGC implements ICopyGC{
         return 0;
     }
 
-    public void initializeObjectsList() {
+    public void initializeObjectsList(List<Triplet<Integer, Integer, Integer>> collectedObjects) {
 
-        List<CollectedObject> objectData = this.dataLoader.extractObjectsData();
+        for (int i = 0; i < collectedObjects.size(); i++){
 
-        for (int i = 0; i < objectData.size(); i++){
-
-            collectedObjectList.put(objectData.get(i).identifier, objectData.get(i));
-            allocated.put(objectData.get(i).identifier, false);
+            collectedObjectList.put(collectedObjects.get(i).getValue0(), collectedObjects.get(i));
+            allocated.put(collectedObjects.get(i).getValue0(), false);
 
         }
     }
 
-    public void initializeObjectsPointers()  {
+    public void initializeObjectsPointers(List<Pair<Integer, Integer>> pointers) {
 
-        List<List<Integer>> pointersList = this.dataLoader.extractPointers();
 
-        for (int i = 0; i < pointersList.size(); i++)
+        for (int i = 0; i < pointers.size(); i++)
+        {
+            if (this.pointersList.get(pointers.get(i).getValue0()) == null){
 
-            collectedObjectList.get(pointersList.get(i).get(0)).pointers.add(pointersList.get(i).get(1));
+                List<Integer> objectPointers = new ArrayList<>();
+                this.pointersList.put(pointers.get(i).getValue0(), objectPointers);
+            }
+
+            this.pointersList.get(pointers.get(i).getValue0()).add(pointers.get(i).getValue1());
+        }
+
 
     }
-
-
-
-
 }
