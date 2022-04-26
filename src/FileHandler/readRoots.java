@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class readRoots {
     public static List<Unit<Integer>> read(String fileName) {
-        String line = "";    
+        String line;
         List<Unit<Integer>> rootsList = new ArrayList<>();
         try
         {

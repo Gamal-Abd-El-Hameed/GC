@@ -9,20 +9,20 @@ public class fileWriter {
         try  {
             BufferedWriter newExcelFileWriter = new BufferedWriter(new FileWriter(fileName));
             int n = newHeapList.size();
-            for(int i = 0; i < n; i++) {
+            for (Triplet<Integer, Integer, Integer> heapElement : newHeapList) {
                 StringBuilder sb = new StringBuilder();
-                System.out.println(newHeapList.get(i).getValue(0));
-                sb.append(newHeapList.get(i).getValue(0) + ",");
-                sb.append(newHeapList.get(i).getValue(1) + ",");
-                sb.append(newHeapList.get(i).getValue(2) + "\n");
+                System.out.println(heapElement.getValue(0));
+                sb.append(heapElement.getValue(0) + ",");
+                sb.append(heapElement.getValue(1) + ",");
+                sb.append(heapElement.getValue(2) + "\n");
                 newExcelFileWriter.write(sb.toString());
             }
             newExcelFileWriter.close();
             return true;
-      
-          } catch (Exception e) {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-          }
+        }
     }
 }

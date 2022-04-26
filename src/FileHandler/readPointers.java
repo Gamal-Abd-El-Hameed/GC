@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class readPointers {
     public static List<Pair<Integer, Integer>> read(String fileName) {
-        String line = "";    
+        String line;
         List<Pair<Integer, Integer>> pointersList = new ArrayList<>();
         try
         {

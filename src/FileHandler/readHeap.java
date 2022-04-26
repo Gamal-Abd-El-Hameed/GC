@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class readHeap {
 
-    void mergeSort(List<Triplet<Integer, Integer, Integer>>  data, int left, int right){
+    private static void mergeSort(List<Triplet<Integer, Integer, Integer>>  data, int left, int right){
         if (left < right){
             int mid = (left + right) / 2;
             mergeSort(data, left, mid);            // sort the left subarray
@@ -19,7 +19,7 @@ public class readHeap {
         }
     }
 
-    void merge(List<Triplet<Integer, Integer, Integer>>  data, int left, int right, int mid){
+    private static void merge(List<Triplet<Integer, Integer, Integer>>  data, int left, int right, int mid){
 
         int leftStart = left;
         int midStart = mid + 1;
@@ -41,8 +41,8 @@ public class readHeap {
             data.set(i + left, newData.get(i));
     }
 
-    public List<Triplet<Integer, Integer, Integer>> read(String fileName) {
-        String line = "";    
+    public static List<Triplet<Integer, Integer, Integer>> read(String fileName) {
+        String line;
         List<Triplet<Integer, Integer, Integer>> heapList = new ArrayList<>();
         try
         {
