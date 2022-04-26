@@ -27,12 +27,5 @@ public class Main {
         if(!markCompactFinished) System.out.println("Error! Mark Compact can't Writte File!\n");
         else System.out.println("Done\n");
 
-        // CSVWriter csvWriter = new CSVWriter(new FileWriter("F:\\example.csv"));
-        // csvWriter.writeNext(new String[]{"1", "jan", "Male", "20"});
-        // csvWriter.writeNext(new String[]{"2", "con", "Male", "24"});
-        // csvWriter.writeNext(new String[]{"3", "jane", "Female", "18"});
-        // csvWriter.writeNext(new String[]{"4", "ryo", "Male", "28"});
- 
-        // csvWriter.close();
     }
 }
